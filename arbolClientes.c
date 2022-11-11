@@ -13,7 +13,7 @@ arbolClientes *inicArbol()
 
 arbolClientes *crearNodoArbol(STCliente cliente)
 {
-    arbolClientes *nuevo = malloc(sizeof(arbolClientes));
+    arbolClientes *nuevo = (arbolClientes *)malloc(sizeof(arbolClientes));
     nuevo->Cliente = cliente;
     nuevo->Factura = inicLista();
     nuevo->der = NULL;
@@ -29,7 +29,7 @@ arbolClientes *agregarNodoArbol(arbolClientes *arbol, arbolClientes *nuevoNodo)
     }
     else
     {
-        if (arbol->Cliente.Dato.DNI < nuevoNodo->Cliente.Dato.DNI)
+        if (arbol->Cliente.Login.id > nuevoNodo->Cliente.Login.id)
         {
             arbol->izq = agregarNodoArbol(arbol->izq, nuevoNodo);
         }
@@ -38,6 +38,7 @@ arbolClientes *agregarNodoArbol(arbolClientes *arbol, arbolClientes *nuevoNodo)
             arbol->der = agregarNodoArbol(arbol->der, nuevoNodo);
         }
     }
+    return arbol;
 }
 
 void mostrarArbol(arbolClientes *arbol)
@@ -48,11 +49,22 @@ void mostrarArbol(arbolClientes *arbol)
         mostrarNodoArbol(arbol);
         mostrarArbol(arbol->der);
     }
+    else
+    {
+        printf("No se puede mostrar el arbol\n");
+    }
 }
 
 void mostrarNodoArbol(arbolClientes *nodo)
 {
-   MostrarUncliente(nodo->Cliente);
+    if (nodo)
+    {
+        MostrarUncliente(nodo->Cliente);
+    }
+    else
+    {
+        printf("No se puede mostrar el cliente error 404");
+    }
 }
 
 arbolClientes *borrarCliente(arbolClientes *arbol, arbolClientes *borrado)
@@ -115,22 +127,19 @@ arbolClientes *buscarNodoCliente(arbolClientes *arbol, int idCliente)
     arbolClientes *aux = inicArbol();
     if (arbol)
     {
-        if (idCliente == arbol->Cliente.Login.id)
+        if (arbol->Cliente.Dato.id == idCliente)
         {
-            if (arbol->Cliente.Login.id == idCliente)
+            aux = arbol;
+        }
+        else
+        {
+            if (idCliente < arbol->Cliente.Dato.id)
             {
-                aux = arbol;
+                aux = buscarNodoCliente(arbol->izq, idCliente);
             }
             else
             {
-                if (idCliente < arbol->Cliente.Login.id)
-                {
-                    aux = buscarNodoCliente(arbol->izq, idCliente);
-                }
-                else
-                {
-                    aux = buscarNodoCliente(arbol->der, idCliente);
-                }
+                aux = buscarNodoCliente(arbol->der, idCliente);
             }
         }
     }
@@ -204,7 +213,7 @@ arbolClientes *modificarDatosPersonalesCliente(arbolClientes *arbol)
         printf("3. Telefono.\n");
         printf("4. Barrio.\n");
         printf("5. Calle.\n");
-        printf("6. Contrasena.\n");
+        printf("6. Password.\n");
 
         scanf("%i", opcion);
         switch (opcion)
@@ -330,22 +339,23 @@ void recorrerYGuardar(arbolClientes *arbol, FILE *fp)
         recorrerYGuardar(arbol->der, &*fp);
     }
 }
-void archivoTOADL(arbolClientes * arbol, char archivo[]){
+arbolClientes *archivoTOADL(arbolClientes *arbol, char archivo[])
+{
     STRegistroCliente a;
     STCliente nuevoCliente;
-    arbolClientes * nuevoNodo=inicArbol();
-    FILE* fp=fopen(archivo, "rb");
-    if(fp){
-
-        while(fread(&a, sizeof(STRegistroCliente), 1, fp)>0){
-            nuevoCliente=registroToSTCLiente(a);
-            MostrarUncliente(nuevoCliente);
-            //MostrarUncliente(nuevoCliente);
-            //nuevoNodo=crearNodoArbol(nuevoCliente);
-            //arbol=agregarNodoArbol(arbol, nuevoNodo);
+    arbolClientes *nuevoNodo = inicArbol();
+    FILE *fp = fopen(archivo, "rb");
+    if (fp)
+    {
+        while (fread(&a, sizeof(STRegistroCliente), 1, fp) > 0)
+        {
+            nuevoCliente = registroToSTCLiente(a);
+            nuevoNodo = crearNodoArbol(nuevoCliente);
+            arbol = agregarNodoArbol(arbol, nuevoNodo);
         }
         fclose(fp);
     }
+    return arbol;
 }
 
 /// GESTION ARBOL Y FACTURAS.

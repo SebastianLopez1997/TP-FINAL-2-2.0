@@ -112,7 +112,7 @@ STServicio CargaServicio()
     int flag = 0;
     int Seleccion = -1;
     printf("\nSeleccione 1- Para contratar el servicio de internet con un costo de $1000\nSeleccione 2- Para contratar el servicio de cable con un costo de $600\nSeleccione 3- Para contratar nuestro combro de internet mas cable con un costo de $1300\nSeleccione 4- Para no contratar ninguno\n");
-    int Seleccion = -1;
+    Seleccion = -1;
     scanf("%i", &Seleccion);
     while (flag == 0)
     {
@@ -201,18 +201,21 @@ STRegistroCliente crearRegistroRand(int id, char archivo[])
     return a;
 }
 
-void generarArchivoRandom(char archivo[])
+void generarArchivoRandom(char archivo[], int *i)
 {
     FILE *fp = fopen(archivo, "wb");
     STRegistroCliente a;
     if (fp)
     {
-        for (int i = 1; i <= 5000; i++)
+        while(*i<5000)
         {
             a = crearRegistroRand(i, archivo);
             fwrite(&a, sizeof(STRegistroCliente), 1, fp);
+            (*i)++;
         }
+        fclose(fp);
     }
+    
 }
 
 /// Mostrar CLiente

@@ -33,7 +33,7 @@ int LoginDeUsuario(arbolClientes *Arbol)
     printf("\nIngrese su DNI\n");
     fflush(stdin);
     scanf("%s", &DNI);
-    printf("\nIngrese Su contraseña\n");
+    printf("\nIngrese su password\n");
     fflush(stdin);
     scanf("%s", &Contrasena);
     int id = buscarNodoClientePorDNI(Arbol, DNI);
@@ -45,21 +45,29 @@ void menuAdministrador(arbolClientes *arbol)
     char user[20];
     char password[20];
     char seguir = 's';
-
+    printf("Bienvenido al bug.\n");
+    printf("Ingrese el nombre de usuario.\n");
+    fflush(stdin);
+    gets(user);
+    printf("Ingrese su password.\n");
+    fflush(stdin);
+    gets(password);
     while (seguir == 's')
     {
-        printf("Bienvenido.\n");
-        printf("Ingrese el nombre de usuario.\n");
-        gets(user);
-        printf("Ingrese la contraseña.\n");
-        gets(password);
         if (ComprobarAdmin(user, password) == 1)
         {
             funcionesAdministrador(arbol);
+            seguir = 'n';
         }
         else
         {
             printf("Los datos ingresados son incorrectos.\n");
+            printf("Ingrese el nombre de usuario.\n");
+            fflush(stdin);
+            gets(user);
+            printf("Ingrese su password.\n");
+            fflush(stdin);
+            gets(password);
             seguir = confirmacionBucle();
         }
     }
@@ -67,52 +75,52 @@ void menuAdministrador(arbolClientes *arbol)
 
 void funcionesAdministrador(arbolClientes *arbol)
 {
-    char seguir = 's';
+    int flag = 0;
     int opcion;
     int cable;
     int internet;
     int idCliente;
+    arbolClientes *buscado;
     printf("Bienvenido Administrador.\n");
-    while (seguir == 's')
+    do
     {
         printf("Ingrese la opcion que desea realizar.\n");
         printf("1. Mostrar clientes.\n");
-        printf("2. Buscar cliente.\n");
+        printf("2. Buscar cliente: \n");
         printf("3. Modificar precios.\n");
-
         printf("4. Finalizar sesion.\n");
-        scanf("%i", opcion);
-    }
-    switch (opcion)
-    {
-    case 1:
-        mostrarArbol(arbol);
-        system("pause");
-        system("cls");
-        break;
-    case 2:
-        idCliente = solicitarIdCliente();
-        arbolClientes *buscado = buscarNodoCliente(arbol, idCliente);
+        scanf("%i", &opcion);
+        switch (opcion)
         {
-            if (buscado)
+        case 1:
+            mostrarArbol(arbol);
+            system("pause");
+            system("cls");
+            break;
+        case 2:
+            idCliente = solicitarIdCliente();
+            buscado = buscarNodoCliente(arbol, idCliente);
             {
-                mostrarNodoArbol(buscado);
-                MostrarTodasLasFacturasDeUnCliente(arbol->Factura);
+                if (buscado)
+                {
+                    mostrarNodoArbol(buscado);
+                    MostrarTodasLasFacturasDeUnCliente(arbol->Factura);
+                }
+                else
+                {
+                    printf("\nCliente no encontrado.\n");
+                }
             }
-            else
-            {
-                printf("\nCliente no encontrado.\n");
-            }
+            break;
+        case 3:
+            cable = ModificarServicioCable();
+            system("cls");
+            system("pause");
+            internet = ModificarServicioInternet();
+            break;
+        default:
+            printf("\nHasta luego\n");
+            break;
         }
-        break;
-    case 3:
-        cable = ModificarServicioCable();
-        system("cls");
-        system("pause");
-        internet = ModificarServicioInternet();
-        break;
-    case 4:
-
-        break;
-    }
+    } while (opcion != 4);
 }

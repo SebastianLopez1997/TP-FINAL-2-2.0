@@ -14,7 +14,7 @@ char confirmacionBucle()
 int solicitarIdCliente()
 {
     int idCliente; /// SOLICITAR ID CLIENTE
-    printf("\nIngrese ID de cliente a buscar");
-    scanf("%d", idCliente);
+    printf("\nIngrese ID de cliente a buscar: ");
+    scanf("%d", &idCliente);
     return idCliente;
 }

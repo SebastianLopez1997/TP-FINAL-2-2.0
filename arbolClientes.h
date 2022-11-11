@@ -38,7 +38,7 @@ void PersistirCliente(arbolClientes *cliente, FILE *fp);
 STRegistroCliente crearRegistroCliente(arbolClientes *cliente);
 void persistirArbol(char archivo[], arbolClientes *arbol);
 void recorrerYGuardar(arbolClientes *arbol, FILE *fp);
-void archivoTOADL(arbolClientes * arbol, char archivo[]);
+arbolClientes * archivoTOADL(arbolClientes *arbol, char archivo[]);
 
 /// GESTION ARBOL Y FACTURAS.
 void PersistenciaDeFactura(char ArchiFacturas[], arbolClientes *Arbol);
