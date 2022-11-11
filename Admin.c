@@ -36,7 +36,7 @@ int LoginDeUsuario(arbolClientes *Arbol)
     printf("\nIngrese Su contraseña\n");
     fflush(stdin);
     scanf("%s", &Contrasena);
-    int id = buscarNodoClientePorDNI(Arbol,DNI);
+    int id = buscarNodoClientePorDNI(Arbol, DNI);
     return id;
 }
 
@@ -69,6 +69,8 @@ void funcionesAdministrador(arbolClientes *arbol)
 {
     char seguir = 's';
     int opcion;
+    int cable;
+    int internet;
     int idCliente;
     printf("Bienvenido Administrador.\n");
     while (seguir == 's')
@@ -76,15 +78,17 @@ void funcionesAdministrador(arbolClientes *arbol)
         printf("Ingrese la opcion que desea realizar.\n");
         printf("1. Mostrar clientes.\n");
         printf("2. Buscar cliente.\n");
-        printf("3. Finalizar sesion.\n");
+        printf("3. Modificar precios.\n");
+
+        printf("4. Finalizar sesion.\n");
         scanf("%i", opcion);
     }
     switch (opcion)
     {
     case 1:
-
-        /// Llamada a la función despersistirRegistros en Arboles de listas.
-        /// Llamada a la función mostrar Arbol.
+        mostrarArbol(arbol);
+        system("pause");
+        system("cls");
         break;
     case 2:
         idCliente = solicitarIdCliente();
@@ -102,6 +106,12 @@ void funcionesAdministrador(arbolClientes *arbol)
         }
         break;
     case 3:
+        cable = ModificarServicioCable();
+        system("cls");
+        system("pause");
+        internet = ModificarServicioInternet();
+        break;
+    case 4:
 
         break;
     }

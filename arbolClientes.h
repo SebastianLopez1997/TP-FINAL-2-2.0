@@ -17,8 +17,12 @@ typedef struct arbolClientes
 arbolClientes *inicArbol();
 arbolClientes *crearNodoArbol(STCliente cliente);
 arbolClientes *agregarNodoArbol(arbolClientes *arbol, arbolClientes *nuevoNodo);
+
+// Mostrar
 void mostrarArbol(arbolClientes *arbol);
 void mostrarNodoArbol(arbolClientes *nodo);
+
+//Borrar
 arbolClientes *borrarCliente(arbolClientes *arbol, arbolClientes *borrado);
 arbolClientes *nodoMasDerecha(arbolClientes *arbol);
 arbolClientes *nodoMasIzquierda(arbolClientes *arbol);
@@ -42,5 +46,6 @@ void mostrarFactura(arbolClientes *arbol);
 int SacarTotal(arbolClientes *Arbol);
 void DespersistenciaDeFacturas(char ArchiFacturas[], arbolClientes *arbol);
 void DespersistirFacturasClienteEspecifico(char ArchiFacturas[], arbolClientes *cliente);
+
 
 #endif // ARBOLCLIENTES_H_INCLUDED

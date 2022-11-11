@@ -67,14 +67,17 @@ void barrioRandom(char barrio[])
     strcpy(barrio, barrios[a]);
 }
 
-void cableRandom(int * cable){
+
+
+int cableRandom(){
     int a= rand()%2;
-    *cable=a;
+    return a;
 }
 int internetRandom(){
     int a=rand()%2;
     return a;
 }
+
 
 void dniRandom(char DNI[])
 {

@@ -21,16 +21,25 @@ typedef struct
     struct nodoFactura *ante;
 } nodoFactura;
 
+typedef struct Facturas
+{
+    int;
+    int;
+} PrecioGlobal;
+
 /// === Prototipados.
-STFactura crearFactura(int id, int fecha, char nombre[], char DNI[], int total);
+STFactura crearFactura(int id, int fecha, char nombre[], char DNI[], int internet, int cable, int valorInternet, int valorCable);
 nodoFactura *inicLista();
 nodoFactura *CrearFacturaNodo(STFactura factura);
 nodoFactura *agregarAlPrincipio(nodoFactura *lista, nodoFactura *nuevoNodo);
 
-
+/// MUESTRA FACTURAS
 void MuestraUnicaFactura(STFactura Factura);
 void MostrarTodasLasFacturasDeUnCliente(nodoFactura *Lista);
 void AbrirArchiFacturasYleer(char ArchiFacturas[]);
 
+/// MODIFICAR FACTURA
+int ModificarServicioInternet();
+int ModificarServicioCable();
 
 #endif

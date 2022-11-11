@@ -3,14 +3,23 @@
 #include <stdio.h>
 #include "Facturas.h"
 /// === Desarrollo funciones.
-STFactura crearFactura(int id, int fecha, char nombre[], char DNI[], int total)
+STFactura crearFactura(int id, int fecha, char nombre[], char DNI[], int internet, int cable, int valorInternet, int valorCable)
 {
     STFactura nueva;
     nueva.id = id;
     strcpy(nueva.DNI, DNI);
     strcpy(nueva.Nombre, nombre);
     nueva.fecha = fecha;
-    nueva.Total = total;
+    nueva.Total = 0;
+    if (internet == 1)
+    {
+        nueva.Total += valorInternet;
+    }
+    if (cable == 1)
+    {
+        nueva.Total += valorCable;
+    }
+
     return nueva;
 }
 
@@ -37,10 +46,7 @@ nodoFactura *agregarAlPrincipio(nodoFactura *lista, nodoFactura *nuevoNodo)
     }
     lista = nuevoNodo;
     return lista;
-
 }
-
-
 
 void MuestraUnicaFactura(STFactura Factura)
 {
@@ -50,7 +56,6 @@ void MuestraUnicaFactura(STFactura Factura)
     printf("\nNombre: %i\n", Factura.Total);
     printf("<------------------------------>");
 }
-
 
 void MostrarTodasLasFacturasDeUnCliente(nodoFactura *Lista)
 {
@@ -71,4 +76,29 @@ void AbrirArchiFacturasYleer(char ArchiFacturas[])
         MuestraUnicaFactura(Aux);
     }
     fclose(BUFFER);
+}
+int PrecioCable()
+{
+    return 600;
+}
+
+int PrecioInternet()
+{
+    return 1000;
+}
+
+int ModificarServicioCable()
+{
+    printf("\nIngrese el nuevo precio para el Cable\n");
+    int Nuevo;
+    scanf("%i", &Nuevo);
+    return Nuevo;
+}
+
+int ModificarServicioInternet()
+{
+    printf("\nIngrese el nuevo precio para el Internet\n");
+    int Nuevo;
+    scanf("%i", &Nuevo);
+    return Nuevo;
 }

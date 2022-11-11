@@ -17,7 +17,7 @@ typedef struct RegistroCliente
     /// Direccion
     char Direccion[20];
     char Barrio[20];
-    /// Servicios
+    /// Servicios activo o no
     int Internet;
     int Cable;
 } STRegistroCliente;
@@ -51,7 +51,8 @@ typedef struct
 } STServicio;
 
 typedef struct
-{   STLogin Login;
+{
+    STLogin Login;
     STPersonal Dato;
     STServicio Servicio;
 } STCliente;
@@ -67,7 +68,6 @@ void modificarDomicilio();
 void cambiarPassword(char password[]);
 STCliente DarmeLaBaja(STCliente aux);
 
-
 /// CARGA CLIENTE.
 STCliente CargarUnCliente();
 STPersonal cargaDatosPersonales();
@@ -79,7 +79,6 @@ STCliente registroToSTCLiente(STRegistroCliente p);
 STRegistroCliente crearRegistroRand(int id, char archivo[]);
 int funcionComprobarDNI(char dni[], char archivo[]);
 
-
 /// MOSTRAR CLIENTE
 void MostrarUncliente(STCliente aux);
 
@@ -87,6 +86,5 @@ void MostrarUncliente(STCliente aux);
 STCliente DarmeLaBaja(STCliente aux);
 int EstadoClienteServicios(STCliente Aux);
 int funcionComprobarDNI(char dni[], char archivo[]);
-
 
 #endif // CLIENTES_H_INCLUDED

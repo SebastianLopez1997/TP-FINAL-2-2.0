@@ -93,7 +93,7 @@ STPersonal cargaDatosPersonales()
     modificarNombre(dato.Nombre);
     modificarApellido(dato.Apellido);
     modificarTelefono(dato.NumeroCel);
-   // modificarDomicilio(dato.direccion);
+    // modificarDomicilio(dato.direccion);
     return dato;
 }
 
@@ -109,37 +109,67 @@ STLogin cargaLogin(STPersonal cliente)
 STServicio CargaServicio()
 {
     STServicio Servicio;
-    char corte;
-    printf("\nDesea contratar el servicio de internet s/n\n");
-    fflush(stdin);
-    scanf("%c", &corte);
-    if (strcmpi(corte, "s") == 0)
+    int flag = 0;
+    int Seleccion = -1;
+    printf("\nSeleccione 1- Para contratar el servicio de internet con un costo de $1000\nSeleccione 2- Para contratar el servicio de cable con un costo de $600\nSeleccione 3- Para contratar nuestro combro de internet mas cable con un costo de $1300\nSeleccione 4- Para no contratar ninguno\n");
+    int Seleccion = -1;
+    scanf("%i", &Seleccion);
+    while (flag == 0)
     {
-        Servicio.Internet = 1;
+        switch (Seleccion)
+        {
+        case 1:
+            printf("\nUsted contrato nuestro servicio de inernet, en breve recibira un llamado telefonico con las instrucciones pertinentes\n");
+            Servicio.Internet = 1;
+            flag = 1;
+            break;
+        case 2:
+            printf("\nUsted contrato nuestro servicio de cable, en breve recibira un llamado telefonico con las instrucciones pertinentes\n");
+            Servicio.Cable = 1;
+            flag = 1;
+            break;
+        case 3:
+            printf("\nUsted contrato nuestro combo servicio de inernet mas cable, en breve recibira un llamado telefonico con las instrucciones pertinentes\n");
+            Servicio.Internet = 1;
+            Servicio.Cable = 1;
+            flag = 1;
+            break;
+        case 4:
+            printf("\nSu usuario quedo registrado, cuando guste podra ingresar nuevamente a nuestra pagina y contratar el servicio deseado \n");
+            flag = 1;
+            break;
+        default:
+            printf("\nSeleccion invalida\n");
+            break;
+        }
     }
-    printf("\nDesea contratar el servicio de cable s/n\n");
-    fflush(stdin);
-    scanf("%c", &corte);
-    if (strcmpi(corte, "s") == 0)
-    {
-        Servicio.Cable = 1;
-    }
+
     return Servicio;
 }
 
+int PedidoBin(char corte)
+{
+    int servicio = 0;
+    if (strcmpi(corte, "s") == 0)
+    {
+        servicio = 1;
+    }
+    return servicio;
+}
 
-STCliente registroToSTCLiente(STRegistroCliente p){
+STCliente registroToSTCLiente(STRegistroCliente p)
+{
     STCliente nuevo;
-    nuevo.Login.id=p.id;
-    nuevo.Dato.id=p.id;
-    strcpy(nuevo.Dato.Nombre,p.Nombre);
-    strcpy(nuevo.Dato.Apellido,p.Apellido);
+    nuevo.Login.id = p.id;
+    nuevo.Dato.id = p.id;
+    strcpy(nuevo.Dato.Nombre, p.Nombre);
+    strcpy(nuevo.Dato.Apellido, p.Apellido);
     strcpy(nuevo.Dato.NumeroCel, p.NumeroCel);
     strcpy(nuevo.Login.pass, p.pass);
     strcpy(nuevo.Dato.direccion.Direccion, p.Direccion);
     strcpy(nuevo.Dato.direccion.Barrio, p.Direccion);
-    nuevo.Servicio.Cable=p.Cable;
-    nuevo.Servicio.Internet=p.Internet;
+    nuevo.Servicio.Cable = p.Cable;
+    nuevo.Servicio.Internet = p.Internet;
     strcpy(nuevo.Dato.DNI, p.DNI);
     strcpy(nuevo.Login.pass, p.pass);
     return nuevo;
@@ -155,8 +185,13 @@ STRegistroCliente crearRegistroRand(int id, char archivo[])
     movilRandom(a.NumeroCel);
     domicilioRandom(a.Direccion);
     barrioRandom(a.Barrio);
-    cableRandom(&a.Cable);
-    a.Internet=internetRandom();;// Hay que modificar para que tome el servicio en conjunto y no por separado(cable e internet));
+    a.Cable = cableRandom();
+    a.Internet = internetRandom();
+    while (a.Cable == 0 && a.Internet == 0) //Evita tener clientes inactivos.
+    {
+        a.Cable = cableRandom();
+        a.Internet = internetRandom(); // Hay que modificar para que tome el servicio en conjunto y no por separado(cable e internet));
+    }
     dniRandom(a.DNI);
     while (funcionComprobarDNI(a.DNI, archivo) == 1)
     {
@@ -166,17 +201,19 @@ STRegistroCliente crearRegistroRand(int id, char archivo[])
     return a;
 }
 
-void generarArchivoRandom(char archivo[]){
-    FILE * fp=fopen(archivo, "wb");
+void generarArchivoRandom(char archivo[])
+{
+    FILE *fp = fopen(archivo, "wb");
     STRegistroCliente a;
-    if(fp){
-        for(int i=1; i<=5000; i++){
-            a=crearRegistroRand(i, archivo);
+    if (fp)
+    {
+        for (int i = 1; i <= 5000; i++)
+        {
+            a = crearRegistroRand(i, archivo);
             fwrite(&a, sizeof(STRegistroCliente), 1, fp);
         }
     }
 }
-
 
 /// Mostrar CLiente
 void MostrarUncliente(STCliente aux)
@@ -208,14 +245,20 @@ int EstadoClienteServicios(STCliente Aux)
     }
     return flag;
 }
-int funcionComprobarDNI(char dni[], char archivo[]){
-    FILE* fp=fopen(archivo, "rb");
-    int flag=0;
+int funcionComprobarDNI(char dni[], char archivo[])
+{
+    FILE *fp = fopen(archivo, "rb");
+    int flag = 0;
     STRegistroCliente a;
-    if(fp){
-        while(fread(&a, sizeof(STRegistroCliente),1 , fp)>0 && flag==0){
-            if(strcmpi(a.DNI, dni)==0){
-                flag=1; /// El dni ya está en uso.
+    if (fp)
+    {
+        while (fread(&a, sizeof(STRegistroCliente), 1, fp) > 0 && flag == 0)
+        {
+            if (strcmpi(a.DNI, dni) == 0)
+            {
+                flag = 1; /// El dni ya está en uso.
+                system("pause");
+                system("cls");
             }
         }
         fclose(fp);

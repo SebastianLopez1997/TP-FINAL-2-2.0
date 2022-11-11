@@ -8,7 +8,7 @@ void movilRandom(char movil[]);
 void domicilioRandom(char domicilio[]);
 void barrioRandom(char barrio[]);
 int internetRandom();
-void cableRandom(int * cable);
+int cableRandom();
 void dniRandom(char DNI[]);
 
 
