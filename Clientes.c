@@ -198,7 +198,7 @@ STCliente registroToSTCLiente(STRegistroCliente p)
     strcpy(nuevo.Dato.NumeroCel, p.NumeroCel);
     strcpy(nuevo.Login.pass, p.pass);
     strcpy(nuevo.Dato.direccion.Direccion, p.Direccion);
-    strcpy(nuevo.Dato.direccion.Barrio, p.Direccion);
+    strcpy(nuevo.Dato.direccion.Barrio, p.Barrio);
     nuevo.Servicio.Cable = p.Cable;
     nuevo.Servicio.Internet = p.Internet;
     strcpy(nuevo.Dato.DNI, p.DNI);

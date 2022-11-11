@@ -7,15 +7,15 @@ int main()
     arbolClientes *arbol = inicArbol();
     generarArchivoRandom("Clientes.bin");
     STRegistroCliente a;
-    FILE * fp=fopen("Clientes.bin", "rb");
+    /*FILE * fp=fopen("Clientes.bin", "rb");
     if(fp){
         while(fread(&a, sizeof(STRegistroCliente), 1, fp)>0){
             printf("Barrio: %s \n", a.Barrio);
         }
-    }
-    /*arbol = archivoTOADL(arbol, "Clientes.bin");
+    }*/
+    arbol = archivoTOADL(arbol, "Clientes.bin");
     arbol = Menu(arbol);
     mostrarArbol(arbol);
-    printf("FINAL");*/
+    printf("FINAL");
     return 0;
 }
