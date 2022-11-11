@@ -21,12 +21,6 @@ typedef struct
     struct nodoFactura *ante;
 } nodoFactura;
 
-typedef struct Facturas
-{
-    int;
-    int;
-} PrecioGlobal;
-
 /// === Prototipados.
 STFactura crearFactura(int id, int fecha, char nombre[], char DNI[], int internet, int cable, int valorInternet, int valorCable);
 nodoFactura *inicLista();
