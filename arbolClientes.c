@@ -296,6 +296,18 @@ arbolClientes *modificarDatosPersonalesCliente(arbolClientes *arbol)
 }
 
 /// PERSISTENCIA ARBOL Y CLIENTE.
+void persistirNuevoNodo(arbolClientes *nodo, char archivo[])
+{
+    STRegistroCliente aux;
+    FILE *fp = fopen(archivo, "ab");
+    if (fp)
+    {
+        fseek(fp, 0, SEEK_END);
+        aux = crearRegistroCliente(nodo);
+        fwrite(&aux, sizeof(STRegistroCliente), 1, fp);
+        fclose(fp);
+    }
+}
 
 void PersistirCliente(arbolClientes *cliente, FILE *fp)
 {
@@ -304,6 +316,25 @@ void PersistirCliente(arbolClientes *cliente, FILE *fp)
         STRegistroCliente aux;
         aux = crearRegistroCliente(cliente);
         fwrite(&aux, sizeof(STRegistroCliente), 1, fp);
+    }
+}
+
+void persistirArbol(char archivo[], arbolClientes *arbol)
+{
+    FILE *fp = fopen(archivo, "wb");
+    if (fp)
+    {
+        recorrerYGuardar(arbol, &*fp);
+        fclose(fp);
+    }
+}
+void recorrerYGuardar(arbolClientes *arbol, FILE *fp)
+{
+    if (arbol)
+    {
+        recorrerYGuardar(arbol->izq, &*fp);
+        PersistirCliente(arbol, &*fp);
+        recorrerYGuardar(arbol->der, &*fp);
     }
 }
 
@@ -321,35 +352,6 @@ STRegistroCliente crearRegistroCliente(arbolClientes *cliente)
     aux.Cable = cliente->Cliente.Servicio.Cable;
     aux.Internet = cliente->Cliente.Servicio.Internet;
     return aux;
-}
-void persistirArbol(char archivo[], arbolClientes *arbol)
-{
-    FILE *fp = fopen(archivo, "wb");
-    if (fp)
-    {
-        recorrerYGuardar(arbol, &*fp);
-        close(fp);
-    }
-}
-void recorrerYGuardar(arbolClientes *arbol, FILE *fp)
-{
-    if (arbol)
-    {
-        recorrerYGuardar(arbol->izq, &*fp);
-        PersistirCliente(arbol, &*fp);
-        recorrerYGuardar(arbol->der, &*fp);
-    }
-}
-
-void persistirNuevoNodo(arbolClientes *nodo, char archivo[])
-{
-    FILE *fp = fopen(archivo, "ab");
-    if (fp)
-    {
-        MostrarUncliente(nodo->Cliente);
-        PersistirCliente(nodo, &*fp);
-        close(fp);
-    }
 }
 
 arbolClientes *archivoTOADL(arbolClientes *arbol, char archivo[])

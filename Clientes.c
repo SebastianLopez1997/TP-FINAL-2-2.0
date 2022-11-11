@@ -102,11 +102,11 @@ STServicio CargaServicio()
     STServicio Servicio;
     int flagInternet = 0, flagCable = 0, flagCombo = 0, flagNuevo = 0, Seleccion = -1, FlagInternet2 = 0, FlagflagCable2 = 0, FlagCombo2 = 0, flagMenu = 0;
 
-    printf("\nSeleccione 1- Para contratar el servicio de internet con un costo de $1000\nSeleccione 2- Para contratar el servicio de cable con un costo de $600\nSeleccione 3- Para contratar nuestro combro de internet mas cable con un costo de $1300\nSeleccione 4- Para no contratar ninguno\n");
-    Seleccion = -1;
-    scanf("%i", &Seleccion);
     do
     {
+        printf("\nSeleccione 1- Para contratar el servicio de internet con un costo de $1000\nSeleccione 2- Para contratar el servicio de cable con un costo de $600\nSeleccione 3- Para contratar nuestro combro de internet mas cable con un costo de $1300\nSeleccione 4- Para no contratar ninguno\n");
+        Seleccion = -1;
+        scanf("%i", &Seleccion);
         switch (Seleccion)
         {
         case 1:
@@ -118,7 +118,7 @@ STServicio CargaServicio()
             }
             else
             {
-                printf("Usted tiene el actualmente el servicio de internet activo, desea darlo de bajo?\n Seleccione 1 para dalo de baja\n Seleccione 2 para salir\n");
+                printf("Usted tiene activo el servicio de internet, desea darlo de bajo?\n Seleccione 1 para dalo de baja\n Seleccione 2 para salir\n");
                 scanf("%i", &FlagInternet2);
                 if (FlagInternet2 == 1)
                 {
@@ -135,7 +135,7 @@ STServicio CargaServicio()
             }
             else
             {
-                printf("Usted tiene el actualmente el servicio de cable activo, desea darlo de bajo?\n Seleccione 1 para dalo de baja\n Seleccione 2 para salir\n");
+                printf("Usted tiene activo el servicio de cable, desea darlo de bajo?\n Seleccione 1 para dalo de baja\n Seleccione 2 para salir\n");
                 scanf("%i", &FlagflagCable2);
                 if (FlagflagCable2 == 1)
                 {
@@ -153,7 +153,7 @@ STServicio CargaServicio()
             }
             else
             {
-                printf("Usted tiene el actualmente el servicio de internet mas cable, desea darlo de bajo?\n Seleccione 1 para dalo de baja\n Seleccione 2 para salir\n");
+                printf("Usted tiene activo el servicio de internet mas cable, desea darlo de bajo?\n Seleccione 1 para dalo de baja\n Seleccione 2 para salir\n");
                 scanf("%i", &FlagCombo2);
                 if (FlagCombo2 == 1)
                 {
@@ -217,7 +217,6 @@ int retornaUltimoId(char archivo[])
         fread(&a, sizeof(STRegistroCliente), 1, fp);
         ultimoId = a.id + 1;
     }
-    printf("\n\t\t\tESTE ES EL ID: %i", ultimoId);
     return ultimoId;
 }
 
@@ -250,7 +249,7 @@ STRegistroCliente crearRegistroRand(int id, char archivo[])
 void generarArchivoRandom(char archivo[])
 {
     FILE *fp = fopen(archivo, "wb");
-    int i=1;
+    int i = 1;
     STRegistroCliente a;
     if (fp)
     {
