@@ -62,9 +62,7 @@ void modificarNombre(char nombre[]);
 void modificarApellido(char apellido[]);
 void modificarTelefono(char telefono[]);
 void modificarBarrio(char barrio[]);
-void modificarCalle(char calle[]);
-void modificarAltura(char altura[]);
-void modificarDomicilio();
+void modificarDireccion(char direccion[]);
 void cambiarPassword(char password[]);
 STCliente DarmeLaBaja(STCliente aux);
 
@@ -75,6 +73,8 @@ STServicio CargaServicio();
 STLogin cargaLogin(STPersonal cliente);
 STRegistroCliente crearRegistroRand(int id, char archivo[]);
 STCliente registroToSTCLiente(STRegistroCliente p);
+int retornaUltimoId(char archivo[]);
+void generarArchivoRandom(char archivo[]);
 
 STRegistroCliente crearRegistroRand(int id, char archivo[]);
 int funcionComprobarDNI(char dni[], char archivo[]);

@@ -263,7 +263,7 @@ arbolClientes *modificarDatosPersonalesCliente(arbolClientes *arbol)
             seguir = confirmacionBucle();
             if (seguir == 's')
             {
-                modificarCalle(nuevo.Dato.direccion.Direccion);
+                modificarDireccion(nuevo.Dato.direccion.Direccion);
                 flag = 0;
                 system("cls");
             }
@@ -306,6 +306,7 @@ void PersistirCliente(arbolClientes *cliente, FILE *fp)
         fwrite(&aux, sizeof(STRegistroCliente), 1, fp);
     }
 }
+
 STRegistroCliente crearRegistroCliente(arbolClientes *cliente)
 {
     STRegistroCliente aux;
@@ -323,7 +324,7 @@ STRegistroCliente crearRegistroCliente(arbolClientes *cliente)
 }
 void persistirArbol(char archivo[], arbolClientes *arbol)
 {
-    FILE *fp = fopen(archivo, "ab");
+    FILE *fp = fopen(archivo, "wb");
     if (fp)
     {
         recorrerYGuardar(arbol, &*fp);
@@ -339,6 +340,18 @@ void recorrerYGuardar(arbolClientes *arbol, FILE *fp)
         recorrerYGuardar(arbol->der, &*fp);
     }
 }
+
+void persistirNuevoNodo(arbolClientes *nodo, char archivo[])
+{
+    FILE *fp = fopen(archivo, "ab");
+    if (fp)
+    {
+        MostrarUncliente(nodo->Cliente);
+        PersistirCliente(nodo, &*fp);
+        close(fp);
+    }
+}
+
 arbolClientes *archivoTOADL(arbolClientes *arbol, char archivo[])
 {
     STRegistroCliente a;
@@ -349,9 +362,12 @@ arbolClientes *archivoTOADL(arbolClientes *arbol, char archivo[])
     {
         while (fread(&a, sizeof(STRegistroCliente), 1, fp) > 0)
         {
-            nuevoCliente = registroToSTCLiente(a);
-            nuevoNodo = crearNodoArbol(nuevoCliente);
-            arbol = agregarNodoArbol(arbol, nuevoNodo);
+            if (a.Internet == 1 || a.Cable == 1)
+            {
+                nuevoCliente = registroToSTCLiente(a);
+                nuevoNodo = crearNodoArbol(nuevoCliente);
+                arbol = agregarNodoArbol(arbol, nuevoNodo);
+            }
         }
         fclose(fp);
     }

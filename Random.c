@@ -64,7 +64,7 @@ void barrioRandom(char barrio[])
     char barrios[][20] = {"Acantilados", "Aeroparque", "Alfar", "Caisamar", "Centenario", "Cerrito", "Constitucion", "Estrada", "Faro", "Juramento", "Libertad",
                          "Montemar", "Pueyrredon", "Sarmiento", "Zacagnini"};
 
-    int a = rand() % 16;
+    int a = rand() % 15;
     strcpy(barrio, barrios[a]);
 }
 

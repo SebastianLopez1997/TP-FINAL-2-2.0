@@ -2,5 +2,6 @@
     "files.associations": {
         "stdio.h": "c",
         "arbolclientes.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

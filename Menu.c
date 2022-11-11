@@ -7,8 +7,6 @@ arbolClientes *Menu(arbolClientes *arbolPrincipal)
     char seguir = 's';
     int flag;
     arbolClientes *Cliente = inicArbol();
-    arbolPrincipal = archivoTOADL(arbolPrincipal, "Clientes.bin"); // Traigo del archivo todos los registros STCliente al Arbol De listas
-
     do
     {
         {
@@ -71,6 +69,7 @@ arbolClientes *Menu(arbolClientes *arbolPrincipal)
             printf("\nBienvenido, te deseamos que tengas la mejor experiencia con nuestro servicios, a continuacion se te ofrecera servicios y planes para que puedas solicitar el que desee, al finalizar se le solocitara sus datos personales para poder realizar la instalacion de los servicios\n");
             STCliente nuevoCliente = CargarUnCliente();
             arbolClientes *Nuevo = crearNodoArbol(nuevoCliente);
+            persistirNuevoNodo(Nuevo, "Clientes.bin");
             arbolPrincipal = agregarNodoArbol(arbolPrincipal, Nuevo);
             break;
         default:
@@ -80,6 +79,8 @@ arbolClientes *Menu(arbolClientes *arbolPrincipal)
             break;
         }
         system("cls");
+        printf("\nDesea salir del prigrama 0 para salir 1 para volver al menu\n");
+        scanf("%i", &numerillo);
     } while (numerillo = 1);
     return arbolPrincipal;
 }

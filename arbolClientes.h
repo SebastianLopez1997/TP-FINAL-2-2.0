@@ -22,7 +22,7 @@ arbolClientes *agregarNodoArbol(arbolClientes *arbol, arbolClientes *nuevoNodo);
 void mostrarArbol(arbolClientes *arbol);
 void mostrarNodoArbol(arbolClientes *nodo);
 
-//Borrar
+// Borrar
 arbolClientes *borrarCliente(arbolClientes *arbol, arbolClientes *borrado);
 arbolClientes *nodoMasDerecha(arbolClientes *arbol);
 arbolClientes *nodoMasIzquierda(arbolClientes *arbol);
@@ -38,7 +38,8 @@ void PersistirCliente(arbolClientes *cliente, FILE *fp);
 STRegistroCliente crearRegistroCliente(arbolClientes *cliente);
 void persistirArbol(char archivo[], arbolClientes *arbol);
 void recorrerYGuardar(arbolClientes *arbol, FILE *fp);
-arbolClientes * archivoTOADL(arbolClientes *arbol, char archivo[]);
+arbolClientes *archivoTOADL(arbolClientes *arbol, char archivo[]);
+void persistirNuevoNodo(arbolClientes *nodo, char archivo[]);
 
 /// GESTION ARBOL Y FACTURAS.
 void PersistenciaDeFactura(char ArchiFacturas[], arbolClientes *Arbol);
@@ -46,6 +47,5 @@ void mostrarFactura(arbolClientes *arbol);
 int SacarTotal(arbolClientes *Arbol);
 void DespersistenciaDeFacturas(char ArchiFacturas[], arbolClientes *arbol);
 void DespersistirFacturasClienteEspecifico(char ArchiFacturas[], arbolClientes *cliente);
-
 
 #endif // ARBOLCLIENTES_H_INCLUDED

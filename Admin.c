@@ -5,7 +5,7 @@
 int ComprobarAdmin(char usuario[20], char contrasena[20])
 {
     int flag = 0;
-    if ((strcmpi(usuario, "Administrador") == 0) && (strcmpi(contrasena, "Administrador") == 0))
+    if ((strcmpi(usuario, "admin") == 0) && (strcmpi(contrasena, "admin") == 0))
     {
         flag = 1;
     }
