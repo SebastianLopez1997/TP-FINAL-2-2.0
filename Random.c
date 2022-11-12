@@ -61,24 +61,46 @@ void domicilioRandom(char domicilio[])
 
 void barrioRandom(char barrio[])
 {
-    char barrios[][20] = {"Acantilados", "Aeroparque", "Alfar", "Caisamar", "Centenario", "Cerrito", "Constitucion", "Estrada", "Faro", "Juramento", "Libertad",
-                         "Montemar", "Pueyrredon", "Sarmiento", "Zacagnini"};
+    char barrios[][20] = {"Acantilados", "Aeroparque", "Alfar", "Caisamar", "Centenario", "Cerrito", "Constitucion", "Estrada", "Faro",
+                          "Juramento", "Libertad", "Montemar", "Pueyrredon", "Sarmiento", "Zacagnini"};
 
     int a = rand() % 15;
     strcpy(barrio, barrios[a]);
 }
 
-
-
-int cableRandom(){
-    int a= rand()%2;
+int cableRandom()
+{
+    int a = rand() % 2;
     return a;
 }
-int internetRandom(){
-    int a=rand()%2;
+int internetRandom()
+{
+    int a = rand() % 2;
     return a;
 }
 
+int diaRandom()
+{
+    int dias[30] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                    21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
+    int i = rand() % 30;
+    return dias[i];
+}
+
+int mesRandom()
+{
+    int meses[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    int i = rand() % 12;
+    return meses[i];
+}
+
+int anioRandom()
+{
+    int anios[3] = {2022, 2021, 2020};
+    int i= rand() % 3;
+    return anios[i];
+}
 
 void dniRandom(char DNI[])
 {

@@ -34,7 +34,7 @@ void CrearFechaActual()
     // El lugar en donde se pondrá la fecha y hora formateadas
     char fechaHora[70];
     // El formato.
-    char *formato = "%Y-%m-%d %H:%M:%S";
+    char *formato = "%Y-%m-01";
     // Intentar formatear
     int bytesEscritos =
         strftime(fechaHora, sizeof fechaHora, formato, &tiempoLocal);

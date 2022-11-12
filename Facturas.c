@@ -1,24 +1,26 @@
 #pragma once
 #include <stdlib.h>
 #include <stdio.h>
-#include "Facturas.h"
+#include "Facturas.h" ///Posiblie bug
+#include <time.h>
 /// === Desarrollo funciones.
-STFactura crearFactura(int id, int fecha, char nombre[], char DNI[], int internet, int cable, int valorInternet, int valorCable)
+STFactura crearFactura(int id, char fecha[], char nombre[], char DNI[], int internet, int cable)
 {
     STFactura nueva;
     nueva.id = id;
     strcpy(nueva.DNI, DNI);
     strcpy(nueva.Nombre, nombre);
-    nueva.fecha = fecha;
+    //nueva.fecha = fecha;
     nueva.Total = 0;
     if (internet == 1)
     {
-        nueva.Total += valorInternet;
+        nueva.Total += PrecioInternet();
     }
     if (cable == 1)
     {
-        nueva.Total += valorCable;
+        nueva.Total += PrecioCable();
     }
+    nueva.Paga = 1;
 
     return nueva;
 }
@@ -103,3 +105,61 @@ int ModificarServicioInternet()
     return Nuevo;
 }
 
+int FacturasTotales(nodoFactura *Factura)
+{
+    nodoFactura *NewFac = NULL;
+    NewFac = Factura;
+    int Cantidad = 0;
+    while (NewFac)
+    {
+        Cantidad++;
+        NewFac->sig;
+    }
+    return Cantidad;
+}
+
+int FacturasTotalesInpagas(nodoFactura *Factura)
+{
+    nodoFactura *NewFac = NULL;
+    NewFac = Factura;
+    int Cantidad = 0;
+
+    while (NewFac)
+    {
+        if (NewFac->Factura.Paga == 0)
+        {
+            Cantidad++;
+            NewFac->sig;
+        }
+    }
+    return Cantidad;
+}
+
+void generarFacturaRandom(char archivo[])
+{
+    STRegistroCliente aux;
+    STFactura facturita;
+    int anio, mes;
+    char a[4];
+    char m[2];
+    FILE *fp = fopen(archivo, "rb");
+    if (fp)
+    {
+        while (fread(&aux, sizeof(STRegistroCliente), 1, fp) > 0)
+        {
+            anio = anioRandom();
+            mes = mesRandom();
+
+            while (anio <= 2022)
+            {
+                while (mes <= 12)
+                {
+
+                    // factura = crearFactura(/*cosas*/);
+                    // itoa(anio, DNI, 10);
+                }
+            }
+        }
+        fclose(fp);
+    }
+}

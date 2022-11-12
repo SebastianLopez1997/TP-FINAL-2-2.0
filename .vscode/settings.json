@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "arbolclientes.h": "c"
+        "arbolclientes.h": "c",
+        "time.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

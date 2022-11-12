@@ -5,13 +5,12 @@
 
 int main()
 {
-    /*
+
     arbolClientes *arbol = inicArbol();
     // generarArchivoRandom("Clientes.bin");
     arbol = archivoTOADL(arbol, "Clientes.bin");
     arbol = Menu(arbol);
     mostrarArbol(arbol);
-    */
-   CrearFechaActual();
+
     return 0;
 }

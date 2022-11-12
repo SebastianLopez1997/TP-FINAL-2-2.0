@@ -49,10 +49,6 @@ void mostrarArbol(arbolClientes *arbol)
         mostrarNodoArbol(arbol);
         mostrarArbol(arbol->der);
     }
-    else
-    {
-        printf("No se puede mostrar el arbol\n");
-    }
 }
 
 void mostrarNodoArbol(arbolClientes *nodo)
